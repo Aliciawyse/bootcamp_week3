@@ -35,7 +35,6 @@ function showWins() {
 
 //functino to keep track of letters guessed
 function addLetter (usersKeypress) {
-    //TODO check if already guessed
     //loop to see if keypress is in lettersguessed. Use something like array.some to check if character in list is equal to key press
 
     var repeatGuess = lettersGuessed.some(function(item){
@@ -49,9 +48,22 @@ function addLetter (usersKeypress) {
         lettersGuessed.push(usersKeypress);
         console.log(lettersGuessed);
 
+        isCharacterInWord(usersKeypress);
+
         //TODO check is character in word or not. Create a function to do this. Function will loop through string and if it matches then reveal letter. Do an else bc if doesnt match any character reduce the guess count
     }
 
+}
+
+//This function will be called in addLetter function or isCharacter?
+
+function isCharacterInWord (character) {
+    for (i = 0; i < currentWordList.length; i++) {
+        //console.log(currentWordList[i]);
+        if (character.toLowerCase() === currentWordList[i]) {
+            console.log(currentWordList[i]);
+        }
+    }
 }
 
 //function to start game
@@ -69,4 +81,5 @@ document.onkeydown = function(event) {
 
     //document.getElementById('guess').innerHTML = keyPress;
     addLetter(keyPress);
+
 }
