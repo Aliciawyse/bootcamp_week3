@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Press any key to get started!</h2>
+<h2>Hi -- welcome to the game!</h2>
 
-<p>Wins: <span id="numWins"></span></p>
+<button id = "btn" onclick="buttonClicked()">Click me to get started</button>
 
-<p>Current Word: <span id="theWord"></span></p>
+<div id = "game" class = "hidden">
+    <p>Wins: <span id="numWins"></span></p>
 
-<p>Number of guesses remaining: <span id="numGuesses"></span></p>
+    <p>Current Word: <span id="theWord"></span></p>
 
-<p>Letters already guessed:
-  <span id="guess"></span>
-</p>
+    <p>Number of guesses remaining: <span id="numGuesses"></span></p>
 
+    <p>Letters already guessed:
+      <span id="guess"></span>
+    </p>
+</div>
 
 <script src="hangman.js"></script>
 

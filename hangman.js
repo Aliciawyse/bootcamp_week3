@@ -2,21 +2,25 @@ var lettersGuessed = [];
 var wins = 0;
 var guessesRemaining = 12;
 var currentWord = "wonderful";
+var arr = [];
 
 
 
 
-//display blank word to guess on screen
+//In order to display blank word
+//on screen, I split the current word, use the map method to
+//substitute characters for "_ _ _ _ _"
+
 var currentWordList = currentWord.split("");
-
 function currentWordOnScreen() {
-    var tempArray = currentWordList.map(function(){
-        return "_";
-    });
+    //var tempArray = currentWordList.map(function(){
+    //    return "_";
+    //});
+
 
     //create a temp string and stick the joined list in it.
-    var tempStr = tempArray.join(" ");
-    //show on webpage
+    //add empty quotes with space so that word shows up like "_ _ _ _" on screen. Then show new string on webpage
+    var tempStr = arr.join(" ");
     document.getElementById("theWord").innerHTML = tempStr;
 }
 
@@ -32,15 +36,16 @@ function showWins() {
 }
 
 
-
-//functino to keep track of letters guessed
+//function to keep track of letters guessed
 function addLetter (usersKeypress) {
-    //loop to see if keypress is in lettersguessed. Use something like array.some to check if character in list is equal to key press
 
+    //return true if the letter the player guesses
+    //already exists in our lettersGuessed list
     var repeatGuess = lettersGuessed.some(function(item){
         return item === usersKeypress;
     })
 
+    //alert player if letter guessed already.
     if (repeatGuess) {
         alert(usersKeypress + " already guessed. Try again!");
         //if it is not a repeat guess check if it's in word
@@ -58,22 +63,66 @@ function addLetter (usersKeypress) {
 //This function will be called in addLetter function or isCharacter?
 
 function isCharacterInWord (character) {
+    var flag = false;
+    //loop thru every character and see if it matches key entered
     for (i = 0; i < currentWordList.length; i++) {
         //console.log(currentWordList[i]);
         if (character.toLowerCase() === currentWordList[i]) {
-            console.log(currentWordList[i]);
+            //(console.log(i);
+            arr[i] = character.toLowerCase();
+            currentWordOnScreen();
+            flag = true;
+
+            //check if user has won the game
+            if (arr.join("") === currentWord) {
+                alert("You won!");
+                wins = wins + 1;
+                showWins();
+                toggleGame();
+
+            }
         }
     }
+
+    //decrement and check is game is end
+    if (flag === false) {
+        guessesRemaining = guessesRemaining - 1;
+        showGuessesRemaining();
+
+        if (guessesRemaining === 0) {
+            alert("You lose");
+            toggleGame();
+        }
+
+    }
+
+
 }
+
+function toggleGame() {
+    document.getElementById("game").classList.toggle("hidden");
+    document.getElementById("btn").classList.toggle("hidden");
+}
+
+
+//function that will create hyphens
+function blankArrayOnScreen (){
+    arr.length = currentWord.length;
+    arr.fill("_");
+
+}
+
 
 //function to start game
 function startGame() {
+    blankArrayOnScreen();
     currentWordOnScreen();
     showGuessesRemaining();
     showWins();
+    lettersGuessed = []
+
 }
 
-startGame();
 
 //function to capture user's keyboard input
 document.onkeydown = function(event) {
@@ -83,3 +132,23 @@ document.onkeydown = function(event) {
     addLetter(keyPress);
 
 }
+
+//need button that when it's clicked it starts game...
+function buttonClicked() {
+    console.log("button clicked");
+    startGame();
+    //add class hidden to button
+    //remove class hidden from game
+    //toggle will remove a class
+    toggleGame();
+
+
+}
+
+
+//TODO
+//add notes to make sure I understand my code
+//when a new game starts start with a blank array
+//After the user wins/loses the game should automatically choose another word and make the user play it
+//consider drawing a hangman
+//Letters Already Guessed: (Letters the user has guessed, displayed like L Z Y H).
