@@ -2,4 +2,25 @@
     display: none;
 }
 
+body {
+    background: orange;
+    text-align: center;
+}
 
+p {
+    font-weight: bold;
+}
+
+span {
+    font-weight: normal;
+}
+
+#btn {
+    height: 45px;
+    border-radius: 8px;
+    border: none;
+    background: #28a745;
+    color: white;
+    padding: 10px 15px;
+    font-size: 20px;
+}

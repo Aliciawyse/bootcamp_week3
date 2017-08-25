@@ -1,25 +1,25 @@
 var lettersGuessed = [];
 var wins = 0;
 var guessesRemaining = 12;
-var currentWord = "wonderful";
+var currentWord = "";
 var arr = [];
 
+var gameWords = ["wonderful", "jennifer", "building", "window"];
+
+//function to pick random word in list and put in currentWord
+//randomly generate a number between one and length of array
+
+function pickWord() {
+
+    var randomNum = Math.floor((Math.random() * gameWords.length) + 1);
+    currentWord = gameWords[randomNum];
+    console.log(currentWord);
+
+}
 
 
-
-//In order to display blank word
-//on screen, I split the current word, use the map method to
-//substitute characters for "_ _ _ _ _"
-
-var currentWordList = currentWord.split("");
+//the word is a list. join it then display it to the screen.
 function currentWordOnScreen() {
-    //var tempArray = currentWordList.map(function(){
-    //    return "_";
-    //});
-
-
-    //create a temp string and stick the joined list in it.
-    //add empty quotes with space so that word shows up like "_ _ _ _" on screen. Then show new string on webpage
     var tempStr = arr.join(" ");
     document.getElementById("theWord").innerHTML = tempStr;
 }
@@ -29,33 +29,35 @@ function showGuessesRemaining() {
     document.getElementById("numGuesses").innerHTML = guessesRemaining;
 }
 
-
 //function to show wins
 function showWins() {
     document.getElementById("numWins").innerHTML = wins;
 }
 
+//function to show letters guessed
+function showLettersGuessed() {
+    var tempStr = lettersGuessed.join(", ");
+    document.getElementById("guess").innerHTML = tempStr;
+}
 
 //function to keep track of letters guessed
 function addLetter (usersKeypress) {
 
-    //return true if the letter the player guesses
-    //already exists in our lettersGuessed list
+
+
     var repeatGuess = lettersGuessed.some(function(item){
         return item === usersKeypress;
     })
 
-    //alert player if letter guessed already.
+    //alert player if the above code is true.
     if (repeatGuess) {
         alert(usersKeypress + " already guessed. Try again!");
-        //if it is not a repeat guess check if it's in word
+
+        //if it is not a repeat guess, check if it's in word
     } else {
         lettersGuessed.push(usersKeypress);
-        console.log(lettersGuessed);
-
+        showLettersGuessed();
         isCharacterInWord(usersKeypress);
-
-        //TODO check is character in word or not. Create a function to do this. Function will loop through string and if it matches then reveal letter. Do an else bc if doesnt match any character reduce the guess count
     }
 
 }
@@ -65,10 +67,10 @@ function addLetter (usersKeypress) {
 function isCharacterInWord (character) {
     var flag = false;
     //loop thru every character and see if it matches key entered
+    var currentWordList = currentWord.split("");
+
     for (i = 0; i < currentWordList.length; i++) {
-        //console.log(currentWordList[i]);
         if (character.toLowerCase() === currentWordList[i]) {
-            //(console.log(i);
             arr[i] = character.toLowerCase();
             currentWordOnScreen();
             flag = true;
@@ -102,25 +104,35 @@ function isCharacterInWord (character) {
 function toggleGame() {
     document.getElementById("game").classList.toggle("hidden");
     document.getElementById("btn").classList.toggle("hidden");
+    //reset variables here
 }
 
 
 //function that will create hyphens
 function blankArrayOnScreen (){
+    console.log("currentword", currentWord);
     arr.length = currentWord.length;
     arr.fill("_");
 
 }
 
+//function to start with a clean slate per new game
+function resetVariables () {
+    lettersGuessed = [];
+    arr = [];
+    guessesRemaining = 12;
+}
+
 
 //function to start game
 function startGame() {
+    resetVariables ();
+    pickWord();
     blankArrayOnScreen();
     currentWordOnScreen();
     showGuessesRemaining();
+    showLettersGuessed();
     showWins();
-    lettersGuessed = []
-
 }
 
 
@@ -141,14 +153,8 @@ function buttonClicked() {
     //remove class hidden from game
     //toggle will remove a class
     toggleGame();
-
-
 }
 
 
 //TODO
-//add notes to make sure I understand my code
-//when a new game starts start with a blank array
-//After the user wins/loses the game should automatically choose another word and make the user play it
 //consider drawing a hangman
-//Letters Already Guessed: (Letters the user has guessed, displayed like L Z Y H).
