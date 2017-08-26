@@ -57,6 +57,7 @@ function addLetter (usersKeypress) {
     } else {
         lettersGuessed.push(usersKeypress);
         showLettersGuessed();
+        //is characeter in letter guessed
         isCharacterInWord(usersKeypress);
     }
 
@@ -128,7 +129,9 @@ function resetVariables () {
 function startGame() {
     resetVariables ();
     pickWord();
+    //puts hyphens in arr
     blankArrayOnScreen();
+    //then displays on screen with hyphens
     currentWordOnScreen();
     showGuessesRemaining();
     showLettersGuessed();

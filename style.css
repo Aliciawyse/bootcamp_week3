@@ -1,11 +1,18 @@
+* {
+    font-family: 'Bubbler One', sans-serif;
+}
+
 .hidden {
     display: none;
 }
 
+
 body {
-    background: orange;
+    background: indianred;
     text-align: center;
+    padding-top: 12%;
 }
+
 
 p {
     font-weight: bold;
@@ -22,5 +29,14 @@ span {
     background: #28a745;
     color: white;
     padding: 10px 15px;
+    font-size: 25px;
+}
+
+#game {
     font-size: 20px;
+    background: navajowhite;
+    width: 25%;
+    padding: .5%;
+    margin: 0 auto;
+    border-radius: 8px;
 }
