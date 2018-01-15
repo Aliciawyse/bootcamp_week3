@@ -4,7 +4,7 @@ var guessesRemaining = 12;
 var currentWord = "";
 var arr = [];
 
-var gameWords = ["wonderful", "jennifer", "building", "window"];
+var gameWords = ["wonderful", "syzygy", "fortuitous", "window"];
 
 //function to pick random word in list and put in currentWord
 //randomly generate a number between one and length of array
